@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.get("/login", function (req, res) {
   var scope =
-    "ugc-image-upload user-read-private user-read-email user-library-read user-read-recently-played user-top-read playlist-read-collaborative user-read-currently-playing";
+    "user-read-private user-top-read user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-read-currently-playing";
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({

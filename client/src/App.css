@@ -1,0 +1,46 @@
+body {
+    background-color: #010108;
+    padding: 0px 80px;
+    color: white;
+}
+.container {
+    width: 100%;
+    margin-top: 3rem;
+  
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    column-gap: 16px;
+    row-gap: 16px;
+}
+
+.playlist {
+    display: flex;
+    flex-direction: row;
+    background-color:rgba(255,255,255,0.1);
+    border-radius: 15px;
+    align-items: center;
+    overflow: hidden;
+    gap: 16px;
+    backdrop-filter: blur(10px);
+    transition: 0.2s
+    
+}
+
+a {
+    color: inherit; 
+    text-decoration: inherit;
+}
+
+img {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+}
+
+.playlist:hover {
+    background-color:rgba(255,255,255,0.3);
+    color: black;
+    cursor: pointer;
+}
