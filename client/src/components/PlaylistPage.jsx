@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import useAuth from "../components/useAuth";
+import useAuth from "./useAuth";
 import SpotifyWebApi from "spotify-web-api-node";
-import PlaylistCard from "../components/PlaylistCard";
+import PlaylistCard from "./PlaylistCard";
 import { FastAverageColor } from 'fast-average-color';
 
 var spotifyApi = new SpotifyWebApi({
   clientId: "533d6a5cfa884e42ae4ee458898c72a8",
 });
 
-function Dashboard({ code }) {
+export default function PlaylistPage({ code }) {
   const [playlists, setPlaylists] = useState([]);
   const [userID, setUserID] = useState("");
 
@@ -57,5 +57,3 @@ function Dashboard({ code }) {
     </div>
   );
 }
-
-export default Dashboard;

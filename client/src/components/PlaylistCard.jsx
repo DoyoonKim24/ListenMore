@@ -1,6 +1,6 @@
 function PlaylistCard({ playlist: { id, name, tracks, images } }) {
   return (
-    <a href={`/playlist/1`}className="playlist">
+    <a className="playlist">
       {images ? (
         <img src={images[0].url} />
       ) : (
