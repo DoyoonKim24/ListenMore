@@ -1,8 +1,12 @@
 import { useState } from "react";
 import PlaylistPage from "./PlaylistPage"
+import Tracks from "./Tracks";
+import useAuth from "./useAuth";
 
 export default function Dashboard({ code }) {
     const [playlist, setPlaylist] = useState(false)
+    const accessToken = useAuth(code);
+    localStorage.setItem("accessToken", accessToken);
     const handleClick = () => {
         setPlaylist(!playlist)
     }
@@ -14,7 +18,7 @@ export default function Dashboard({ code }) {
     }
     return (
         <div>
-            <PlaylistPage code={ code } />
+            <Tracks trackshref="hello"/>
         </div>
     )
 }

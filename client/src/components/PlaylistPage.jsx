@@ -1,59 +1,80 @@
 import { useState, useEffect } from "react";
 import useAuth from "./useAuth";
 import SpotifyWebApi from "spotify-web-api-node";
+import axios from "axios";
 import PlaylistCard from "./PlaylistCard";
-import { FastAverageColor } from 'fast-average-color';
+import { FastAverageColor } from "fast-average-color";
+import Tracks from "./Tracks";
 
 var spotifyApi = new SpotifyWebApi({
   clientId: "533d6a5cfa884e42ae4ee458898c72a8",
 });
 
-export default function PlaylistPage({ code }) {
+export default function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
   const [userID, setUserID] = useState("");
+  const [trackshref, setTrackshref] = useState([]);
+  const [chosen, setChosen] = useState(false);
 
-  const accessToken = useAuth(code);
-  spotifyApi.setAccessToken(accessToken);
+  const accessToken = localStorage.getItem("accessToken");
+
+  const getUser = () => {
+    axios
+      .get("https://api.spotify.com/v1/me", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        setUserID(response.data.id);
+      })
+      .catch((error) => {
+        console.log("get User ID error", error);
+      });
+  };
+  const getPlaylists = (user) => {
+    axios
+      .get(`https://api.spotify.com/v1/users/${user}/playlists`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        setPlaylists(response.data.items);
+      })
+      .catch((error) => {
+        console.log("get playlists error", error);
+      });
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await spotifyApi.getMe();
-        setUserID(userData.body.id);
-
-        const playlistsData = await spotifyApi.getUserPlaylists(userID);
-        setPlaylists(playlistsData.body.items);
-      } catch (err) {
-        console.log("Something went wrong!", err);
-      }
-    };
-    
-    const fac = new FastAverageColor();
-
-    fac.getColorAsync('https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84c8090ee9c5325d606fb9dc85')
-        .then(color => {
-            console.log('Average color', color);
-        })
-        .catch(e => {
-            console.log(e);
-        });
-
     if (accessToken) {
-      fetchData();
+      getUser();
     }
-  }, [accessToken]);
+    if (userID) {
+      getPlaylists(userID);
+    }
+  }, [accessToken, userID]);
 
-  console.log(playlists);
+  if (!chosen) {
+    return (
+      <div>
+        {playlists.length > 0 ? (
+          <div className="container">
+            {playlists.map((playlist) => (
+              <PlaylistCard
+                key={playlist.id}
+                playlist={playlist}
+                setChosen={setChosen}
+                setTracks={setTrackshref}
+              />
+            ))}
+          </div>
+        ) : (
+          console.log(playlists)
+        )}
+      </div>
+    );
+  }
   return (
     <div>
-      {playlists.length > 0 ? (
-        <div className='container'>
-          {playlists.map((playlist) => (
-            <PlaylistCard playlist={playlist} />
-          ))}
-        </div>
-      ) : (
-        "Loading..."
-      )}
+      <Tracks trackshref={trackshref} spotifyApi={spotifyApi} />
     </div>
   );
 }

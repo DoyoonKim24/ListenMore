@@ -5,8 +5,8 @@ const bodyParser = require("body-parser")
 const querystring = require("querystring");
 const SpotifyWebApi = require("spotify-web-api-node");
 
-var client_id = "533d6a5cfa884e42ae4ee458898c72a8";
-var client_secret = "9d33d756f725492ea16c7de70caad81e";
+var client_id = "a47f95d6dc7843ec80318ddaa562cbff";
+var client_secret = "1eac879cd8dd43dca9bc8156ef0c3b9a";
 var redirect_uri = "http://localhost:3000";
 
 var app = express();

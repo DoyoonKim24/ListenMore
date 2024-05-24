@@ -2,6 +2,8 @@ body {
     background-color: #010108;
     padding: 0px 80px;
     color: white;
+    font-family: Effra, sans-serif;
+    font-weight: 400;
 }
 .container {
     width: 100%;
@@ -13,6 +15,29 @@ body {
     align-items: center;
     column-gap: 16px;
     row-gap: 16px;
+}
+
+.purple-ellipse {
+    position: fixed;
+    width: 560px;
+    height:560px;
+    background-color: rgba(129,74,217, 0.8);
+    z-index: -1;
+    border-radius: 50%;
+    top: -250px;
+    left: 150px;
+    filter: blur(150px);
+}
+.red-ellipse {
+    position: fixed;
+    width: 620px;
+    height:620px;
+    background-color: rgba(217,74,74, 0.8);
+    z-index: -1;
+    border-radius: 50%;
+    bottom: -200px;
+    right: -50px;
+    filter: blur(200px);
 }
 
 .playlist {
@@ -32,6 +57,21 @@ a {
     color: inherit; 
     text-decoration: inherit;
 }
+h5 {
+    font-size: 26px;
+    margin: 0;
+    font-weight: 400;
+}
+h6 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 400;
+}
+p {
+    font-size: 16px;
+    color: #A0A0A0;
+    margin: 0;
+}
 
 img {
     width: 68px;
@@ -43,4 +83,70 @@ img {
     background-color:rgba(255,255,255,0.3);
     color: black;
     cursor: pointer;
+}
+
+
+.song-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+.song-card:hover {
+    background-color: rgba(94,94,94,0.5);
+}
+
+.song-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.song-and-artist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 36px;
+}
+
+.song-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.clear-button {
+    border: 3px solid;
+    width: 40px;
+    height: 40px;
+    padding: 4px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+
+/* CSS */
+button {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 16px;
+  font-family: Effra, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  touch-action: manipulation;
+}
+
+button:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
 }

@@ -1,6 +1,12 @@
-function PlaylistCard({ playlist: { id, name, tracks, images } }) {
+function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setTracks}) {
+
+    const handleClick = () => {
+        setTracks(tracks.href);
+        setChosen(true);
+    }
+
   return (
-    <a className="playlist">
+    <a onClick={handleClick} className="playlist">
       {images ? (
         <img src={images[0].url} />
       ) : (

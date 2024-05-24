@@ -12,6 +12,12 @@ export default function App() {
   if (token) {
     setToken(code);
   }
-  return  code ? <Dashboard code={code} /> : <Login />
-
+  //return  code ? <Dashboard code={code} /> : <Login />
+  return ( 
+  <> 
+    <div className='purple-ellipse'></div>
+    <div className='red-ellipse'></div>
+    <Dashboard code={code} />
+    </>
+  )
 }
