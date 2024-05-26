@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import useAuth from "./useAuth";
-import SpotifyWebApi from "spotify-web-api-node";
 import axios from "axios";
 import PlaylistCard from "./PlaylistCard";
 import { FastAverageColor } from "fast-average-color";
 import Tracks from "./Tracks";
 
-var spotifyApi = new SpotifyWebApi({
-  clientId: "533d6a5cfa884e42ae4ee458898c72a8",
-});
 
 export default function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
@@ -66,15 +61,13 @@ export default function PlaylistPage() {
               />
             ))}
           </div>
-        ) : (
-          console.log(playlists)
-        )}
+        ) : null}
       </div>
     );
   }
   return (
     <div>
-      <Tracks trackshref={trackshref} spotifyApi={spotifyApi} />
+      <Tracks trackshref={trackshref} />
     </div>
   );
 }

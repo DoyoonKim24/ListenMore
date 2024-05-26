@@ -1,13 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
+const axios = require("axios");
 const bodyParser = require("body-parser")
 const querystring = require("querystring");
-const SpotifyWebApi = require("spotify-web-api-node");
 
-var client_id = "a47f95d6dc7843ec80318ddaa562cbff";
-var client_secret = "1eac879cd8dd43dca9bc8156ef0c3b9a";
-var redirect_uri = "http://localhost:3000";
+
+var client_id = "***REMOVED***";
+var client_secret = "***REMOVED***";
+var redirect_uri = "http://localhost:8888/callback";
 
 var app = express();
 
@@ -27,29 +28,60 @@ app.get("/login", function (req, res) {
       })
   );
 });
+app.get('/callback', async (req, res) => {
+    const code = req.query.code || null;
+    const token_url = 'https://accounts.spotify.com/api/token';
 
-app.post("/callback", function (req, res) {
-  var code = req.body.code
-  var authOptions = {
-    url: "https://accounts.spotify.com/api/token",
-    form: {
-      code: code,
-      redirect_uri: redirect_uri,
-      grant_type: "authorization_code",
-    },
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic " +
-        new Buffer.from(client_id + ":" + client_secret).toString("base64"),
-    },
-    json: true,
-  };
+    try {
+        const response = await axios.post(token_url, querystring.stringify({
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: redirect_uri,
+            client_id: client_id,
+            client_secret: client_secret
+        }), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
 
-  request.post(authOptions, function (error, response, body) {
-    console.log(body);
-    res.json(body);
-  });
+        const { access_token, refresh_token, expires_in } = response.data;
+        res.redirect(
+            "http://localhost:3000?" +
+              querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token,
+                expires_in: expires_in
+              })
+          );
+    } catch (error) {
+        console.log(error);
+    }
 });
+
+
+// app.post("/callback", function (req, res) {
+//   var code = req.body.code
+//   var authOptions = {
+//     url: "https://accounts.spotify.com/api/token",
+//     form: {
+//       code: code,
+//       redirect_uri: redirect_uri,
+//       grant_type: "authorization_code",
+//     },
+//     headers: {
+//       "content-type": "application/x-www-form-urlencoded",
+//       Authorization:
+//         "Basic " +
+//         new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+//     },
+//     json: true,
+//   };
+
+//   request.post(authOptions, function (error, response, body) {
+//     console.log(body);
+//     res.json(body);
+//   });
+// });
 
 app.listen(8888);

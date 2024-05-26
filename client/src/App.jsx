@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import Login from './components/Login';
-import PlaylistPage from './components/PlaylistPage';
-import Dashboard from './components/Dashboard';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+import Login from "./components/Login";
+import PlaylistPage from "./components/PlaylistPage";
+import Dashboard from "./components/Dashboard";
+import "./App.css";
 
 export default function App() {
-  const [token, setToken] = useState('');
-  const [data, setData] = useState('');
-  const code = new URLSearchParams(window.location.search).get("code")
-  if (token) {
-    setToken(code);
-  }
-  //return  code ? <Dashboard code={code} /> : <Login />
-  return ( 
-  <> 
-    <div className='purple-ellipse'></div>
-    <div className='red-ellipse'></div>
-    <Dashboard code={code} />
+ 
+    const accessToken =  new URLSearchParams(window.location.search).get("access_token");
+
+
+      //window.history.pushState({}, null, "/")
+      localStorage.setItem("accessToken", accessToken);
+
+  return (
+    <>
+      <div className="purple-ellipse"></div>
+      <div className="red-ellipse"></div>
+      {accessToken ? <Dashboard /> : <Login />}
     </>
-  )
+  );
 }
