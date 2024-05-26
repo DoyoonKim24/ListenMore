@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PlaylistPage from "./PlaylistPage"
 import Tracks from "./Tracks";
-import useAuth from "./useAuth";
 
-export default function Dashboard({ code }) {
+export default function Dashboard() {
     const [playlist, setPlaylist] = useState(false)
-    const accessToken = useAuth(code);
-    localStorage.setItem("accessToken", accessToken);
+    window.history.pushState({}, null, "/")
+
+
     const handleClick = () => {
         setPlaylist(!playlist)
     }
     if (!playlist) {
         return (<div>
-            <button onClick = { handleClick }> Songs by Mood </button>
-            <button> Songs by Playlist </button>
+            <button onClick = { handleClick }> Songs by Playlist </button>
+            <button> Songs by Mood </button>
         </div>)
     }
     return (
         <div>
-            <Tracks trackshref="hello"/>
+            <PlaylistPage />
         </div>
     )
 }
