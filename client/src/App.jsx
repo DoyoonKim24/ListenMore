@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
 import Login from "./components/Login";
-import PlaylistPage from "./components/PlaylistPage";
 import Dashboard from "./components/Dashboard";
 import "./App.css";
 

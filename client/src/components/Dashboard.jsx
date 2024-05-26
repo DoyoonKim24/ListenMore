@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PlaylistPage from "./PlaylistPage"
-import Tracks from "./Tracks";
 
 export default function Dashboard() {
     const [playlist, setPlaylist] = useState(false)
