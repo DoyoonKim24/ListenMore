@@ -7,12 +7,12 @@ import Tracks from "./Tracks";
 
 export default function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
-  const [trackshref, setTrackshref] = useState([]);
+  const [seeds, setSeeds] = useState([]);
   const [chosen, setChosen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
   const userID = localStorage.getItem("userID");
-  
+
   const getPlaylists = (user) => {
     axios
       .get(`https://api.spotify.com/v1/users/${user}/playlists`, {
@@ -41,13 +41,13 @@ export default function PlaylistPage() {
                 key={playlist.id}
                 playlist={playlist}
                 setChosen={setChosen}
-                setTracks={setTrackshref}
+                setSeeds={setSeeds}
               />
             ))}
           </div>
         ) : null
     );
   }
-  return (<Tracks trackshref={trackshref} />
+  return (<Tracks seeds={seeds} />
   );
 }
