@@ -3,7 +3,7 @@ import axios from "axios";
 import TrackCard from "./TrackCard";
 import Dashboard from "./Dashboard";
 
-export default function Tracks({ trackshref }) {
+export default function Tracks({ seeds }) {
   const [tracks, setTracks] = useState([]);
   const [valence, setValence] = useState(50);
   const [danceability, setDanceability] = useState(50);
@@ -27,12 +27,11 @@ export default function Tracks({ trackshref }) {
     const targetValence = valence / 100;
     axios
       .get(
-        `https://api.spotify.com/v1/recommendations?limit=50&seed_artists=4V8LLVI7PbaPR0K2TGSxFF&seed_genres=rap&target_danceability=${targetDanceability}&target_energy=${targetEnergy}&target_valence=${targetValence}`,
+        `https://api.spotify.com/v1/recommendations?limit=50&seed_artists=${seeds}&target_danceability=${targetDanceability}&target_energy=${targetEnergy}&target_valence=${targetValence}`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
       .then((response) => {
         setTracks(response.data.tracks);
-        console.log(response.data.tracks[0]);
       })
       .catch((error) => {
         console.log("Tracks error ", error);
