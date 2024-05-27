@@ -7,24 +7,12 @@ import Tracks from "./Tracks";
 
 export default function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
-  const [userID, setUserID] = useState("");
   const [trackshref, setTrackshref] = useState([]);
   const [chosen, setChosen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
-
-  const getUser = () => {
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((response) => {
-        setUserID(response.data.id);
-      })
-      .catch((error) => {
-        console.log("get User ID error", error);
-      });
-  };
+  const userID = localStorage.getItem("userID");
+  
   const getPlaylists = (user) => {
     axios
       .get(`https://api.spotify.com/v1/users/${user}/playlists`, {
@@ -39,18 +27,14 @@ export default function PlaylistPage() {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      getUser();
-    }
     if (userID) {
       getPlaylists(userID);
     }
-  }, [accessToken, userID]);
+  }, []);
 
   if (!chosen) {
     return (
-      <div>
-        {playlists.length > 0 ? (
+        playlists.length > 0 ? (
           <div className="container">
             {playlists.map((playlist) => (
               <PlaylistCard
@@ -61,13 +45,9 @@ export default function PlaylistPage() {
               />
             ))}
           </div>
-        ) : null}
-      </div>
+        ) : null
     );
   }
-  return (
-    <div>
-      <Tracks trackshref={trackshref} />
-    </div>
+  return (<Tracks trackshref={trackshref} />
   );
 }

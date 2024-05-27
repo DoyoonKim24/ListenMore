@@ -2,42 +2,93 @@ body {
     background-color: #010108;
     padding: 0px 80px;
     color: white;
-    font-family: Effra, sans-serif;
+    font-family: "Effra", sans-serif;
     font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+#root {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1136px;
+}
+.head-logo {
+    display: grid;
+    justify-content: center;
+    font-family: "fractul-variable", sans-serif;
+    font-style: italic;
+    font-size: 27px;
+    font-variation-settings: "wght" 700;
+    color: #A9B4EE;
+    padding-top: 40px;
+    align-items: top;
+    justify-items: center;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "listen listen"
+        "logo more";
+}
+
+.listen {
+    grid-area: listen;
+    font-size: 50px;
+    line-height: 30px;
+    letter-spacing: -3px;
+}
+
+.logo {
+    grid-area: logo;
+    padding-top: 3px;
+    padding-right:2px;
+}
+
+.more {
+    grid-area: more;
+    font-size: 38px;
+    font-variation-settings: "wght" 400;
+}
+
+.purple-ellipse {
+    position: fixed;
+    width: 40vw;
+    height: 40vw;
+    background-color: rgba(129,74,217, 0.8);
+    z-index: -1;
+    border-radius: 50%;
+    top: -17vw;
+    left: 10vw;
+    filter: blur(10vw);
+}
+.red-ellipse {
+    position: fixed;
+    width: 45vw;
+    height: 45vw;
+    background-color: rgba(217,74,74, 0.8);
+    z-index: -1;
+    border-radius: 50%;
+    bottom: -14vw;
+    right: -3vw;
+    filter: blur(14vw);
+}
+
 .container {
     width: 100%;
     margin-top: 3rem;
-  
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
     column-gap: 16px;
     row-gap: 16px;
-}
-
-.purple-ellipse {
-    position: fixed;
-    width: 560px;
-    height:560px;
-    background-color: rgba(129,74,217, 0.8);
-    z-index: -1;
-    border-radius: 50%;
-    top: -250px;
-    left: 150px;
-    filter: blur(150px);
-}
-.red-ellipse {
-    position: fixed;
-    width: 620px;
-    height:620px;
-    background-color: rgba(217,74,74, 0.8);
-    z-index: -1;
-    border-radius: 50%;
-    bottom: -200px;
-    right: -50px;
-    filter: blur(200px);
 }
 
 .playlist {
@@ -61,6 +112,7 @@ a {
 h1 {
     font-size: 80px;
     margin: 0px;
+    padding-bottom: 32px;
 }
 
 h5 {
@@ -95,6 +147,11 @@ img {
     background-color:rgba(255,255,255,0.3);
     color: black;
     cursor: pointer;
+}
+
+.tracks-page{
+    padding-top: 80px;
+    width: 100%;
 }
 
 .song-card {
@@ -150,7 +207,13 @@ img {
 .create-button {
     position: fixed;
     left: 50%;
+    transform: translateX(-50%);
     bottom: 64px;
+}
+
+.grey-button {
+    border-color: #A0A0A0;
+    color: #A0A0A0;
 }
 
 button {

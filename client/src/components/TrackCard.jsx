@@ -27,10 +27,10 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
 
   const handleTrack = () => {
     if (!trackAdded) {
-      addTrack(track.name);
+      addTrack(track.uri);
       setTrackAdded(true);
     } else {
-      removeTrack(track.name);
+      removeTrack(track.uri);
       setTrackAdded(false);
     }
   }
@@ -56,7 +56,7 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
       </div>
       <div className="song-actions">
         <button className="add-button">+</button>
-        <button onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
+        <button className={trackAdded ? 'grey-button' : ''} onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
       </div>
     </div>
   );
