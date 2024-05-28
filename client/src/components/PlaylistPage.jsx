@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getPlaylists } from "./spotifyCalls";
 import PlaylistCard from "./PlaylistCard";
-import { FastAverageColor } from "fast-average-color";
 import Tracks from "./Tracks";
 
 
@@ -10,27 +9,14 @@ export default function PlaylistPage() {
   const [seeds, setSeeds] = useState([]);
   const [chosen, setChosen] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken");
   const userID = localStorage.getItem("userID");
 
-  const getPlaylists = (user) => {
-    axios
-      .get(`https://api.spotify.com/v1/users/${user}/playlists`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((response) => {
-        setPlaylists(response.data.items);
-      })
-      .catch((error) => {
-        console.log("get playlists error", error);
-      });
-  };
 
   useEffect(() => {
     if (userID) {
-      getPlaylists(userID);
+      getPlaylists(userID).then((playlists) => setPlaylists(playlists));
     }
-  }, []);
+  }, [userID]);
 
   if (!chosen) {
     return (
