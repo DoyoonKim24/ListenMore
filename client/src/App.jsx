@@ -19,8 +19,10 @@ export default function App() {
         <FontAwesomeIcon className="logo" icon={faSpotify} />
         <div className="more">More</div>
       </div>
+
       <div className="purple-ellipse"></div>
       <div className="red-ellipse"></div>
+      
       {accessToken ? <Dashboard /> : <Login />}
     </>
   );
