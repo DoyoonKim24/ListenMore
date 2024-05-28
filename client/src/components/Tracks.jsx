@@ -20,6 +20,10 @@ export default function Tracks({ seeds }) {
     setDashRedirect(false);
   }, [])
 
+  useEffect(() => {
+    console.log(chosenTracks);
+  }, [chosenTracks]);
+
 
   const handleGetRecs = () => {
     const targetDanceability = danceability / 100;
@@ -46,9 +50,9 @@ export default function Tracks({ seeds }) {
     setChosenTracks([...chosenTracks, track]);
   }
 
-  const removeTrack = async (track) => {
-    let arr = await chosenTracks;
-    const index = await arr.indexOf(track);
+  const removeTrack = (track) => {
+    let arr = [... chosenTracks];
+    const index = arr.indexOf(track);
     arr.splice(index, 1);
     setChosenTracks(arr)
   }
@@ -95,7 +99,8 @@ export default function Tracks({ seeds }) {
     <>
       {tracks.length > 0 ? (
         <div className="tracks-page">
-          <button className='purple-button create-button' onClick={createPlaylist}> Create Playlist </button>
+          {chosenTracks.length > 0 ?  <button className='purple-button create-button' onClick={createPlaylist}> Create Playlist </button> : null}
+         
           <h1>Choose Songs to Add</h1>
           <div className='select-buttons'>
             <button className='white-button' onClick={selectAll}>Select All</button>

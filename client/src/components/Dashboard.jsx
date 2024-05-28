@@ -5,7 +5,6 @@ import PlaylistPage from "./PlaylistPage"
 export default function Dashboard() {
     const [playlist, setPlaylist] = useState(false)
     window.history.pushState({}, null, "/")
-    const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
         getUser()

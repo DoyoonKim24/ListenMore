@@ -88,3 +88,29 @@ export const getRecommendations = async (seeds, targetDanceability, targetEnergy
 
       return recs;
 }
+
+export const addLike = (uri) => {
+  const accessToken = localStorage.getItem("accessToken");
+  axios.put(
+    `https://api.spotify.com/v1/me/tracks?ids=${uri}`, 
+    {ids: [uri]}, 
+    {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    }
+  ).catch((error) => {
+    console.log("song liking error", error);
+  })
+}
+
+export const removeLike = (uri) => {
+  const accessToken = localStorage.getItem("accessToken");
+  console.log(uri)
+  axios.delete(
+    `https://api.spotify.com/v1/me/tracks?ids=${uri}`, 
+    {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    }
+  ).catch((error) => {
+    console.log("song unliking error", error);
+  })
+}
