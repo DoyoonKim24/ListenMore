@@ -25,9 +25,14 @@ export default function Dashboard() {
         setPlaylist(!playlist)
     }
     if (!playlist) {
-        return (<div>
-            <button onClick = { handleClick }> Songs by Playlist </button>
-            <button> Songs by Mood </button>
+        return (<div className="options-page">
+            <h2> Find songs based on: </h2>
+            <div className="options-box">
+                <button onClick = { handleClick }> Playlist </button>
+                <button> Artists </button>
+                <button> Songs </button>
+                <button> Album </button>
+            </div>
         </div>)
     }
     return (

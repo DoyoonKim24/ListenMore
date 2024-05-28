@@ -1,7 +1,14 @@
-
-
 function Login() {
+  
+  const redirect = () => {
+    window.location.href = "http://localhost:8888/login";
+  }
 
-  return <a href='http://localhost:8888\login'>Login with Spotify</a>;
-}
+  return (
+    <div className='login-page'>
+      <h1> Get personalized music recommendations based on your  playlists, artists, and mood. </h1>
+      <button onClick={redirect} className ='login-button'>Login with Spotify</button>
+
+    </div>
+)}
 export default Login;

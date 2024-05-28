@@ -35,15 +35,18 @@ export default function PlaylistPage() {
   if (!chosen) {
     return (
         playlists.length > 0 ? (
-          <div className="container">
-            {playlists.map((playlist) => (
+          <div className="playlist-page">
+            <h2>Choose A Playlist:</h2>
+            <div className='playlists-grid'>
+              {playlists.map((playlist) => (
               <PlaylistCard
                 key={playlist.id}
                 playlist={playlist}
                 setChosen={setChosen}
                 setSeeds={setSeeds}
               />
-            ))}
+              ))}
+            </div>
           </div>
         ) : null
     );

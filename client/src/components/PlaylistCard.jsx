@@ -44,7 +44,7 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setSe
       ) : (
         <img src="https://via.placeholder.com/400" />
       )}
-      <h4>{name}</h4>
+      <p>{name}</p>
     </a>
   );
 }
