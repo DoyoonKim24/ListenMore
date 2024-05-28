@@ -79,12 +79,29 @@ button {
     text-decoration: none;
     transition: 150ms;
     width: fit-content;
+    border: none;
   }
   
 button:hover {
     background-color: #31A744;
      border-color: #31A744;
     box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+}
+
+.options-box button {
+    font-family: "fractul-variable", sans-serif;
+    font-variation-settings: "wght" 600;
+    color: #A9B4EE;
+    font-size: 3rem;
+    width:100%;
+    height:100%;
+    padding: 10vh 0px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.options-box button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .white-button {
@@ -112,6 +129,8 @@ button:hover {
     padding: 16px 24px;
     border: none;
 }
+
+
 
 .head-logo {
     position: absolute;
@@ -203,22 +222,6 @@ button:hover {
     gap: 16px;
     height: 100%;
     gap: 1rem;
-}
-
-.options-box button {
-    font-family: "fractul-variable", sans-serif;
-    font-variation-settings: "wght" 600;
-    color: #A9B4EE;
-    font-size: 3rem;
-    width:100%;
-    height:100%;
-    padding: 10vh 0px;
-    border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.options-box button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .playlist-page {

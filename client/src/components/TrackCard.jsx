@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as linedHeart } from "@fortawesome/free-regular-svg-icons";
-import axios from "axios";
+import { addLike, removeLike } from "./spotifyCalls";
 
 export default function TrackCard({ track, addTrack, removeTrack, allSelected, allDeselected }) {
   const [play, setPlay] = useState(false);
@@ -40,13 +40,8 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
     }
   }
   const handleLike = () => {
-    axios.get(`https://api.spotify.com/v1/me/tracks?ids=${track.uri}`,
-    { headers: { Authorization: `Bearer ${accessToken}` }})
-    .then(() => {
-      setLiked(true);
-    }).catch((err) => {
-      console.log("Liking song error: ", err)
-    })
+    liked ? removeLike(track.id) : addLike(track.id);
+    setLiked(!liked);
   }
 
   return (

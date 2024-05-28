@@ -37,6 +37,5 @@ export default function PlaylistPage() {
         ) : null
     );
   }
-  return (<Tracks seeds={seeds} />
-  );
+  return <Tracks seeds={seeds} />
 }
