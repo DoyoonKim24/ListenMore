@@ -40,6 +40,12 @@ h2 {
     margin: 0px;
 }
 
+h4 {
+    font-size: 1.95em;
+    margin: 0;
+    font-weight: 500;
+}
+
 h5 {
     font-size: 1.56em;
     margin: 0;
@@ -68,21 +74,44 @@ button {
     font-family: "Effra", sans-serif;
     border-radius: 100px;
     padding: 8px 16px;
+    width: 100px;
     text-align: center;
     text-decoration: none;
     transition: 150ms;
+    width: fit-content;
+  }
+  
+button:hover {
+    background-color: #31A744;
+     border-color: #31A744;
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+}
+
+.white-button {
     border: 3px solid;
     background-color: rgba(0,0,0,0);
     border-color: white;
     color: white;
-    width: max-content;
-  }
-  
-  button:hover {
-      background-color: #31A744;
-      border-color: #31A744;
-      box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
-  }
+}
+
+.create-button {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 64px;
+}
+
+.grey-button {
+    border-color: #A0A0A0;
+    color: #A0A0A0;
+}
+
+.purple-button {
+    background-color: #6064C4;
+    font-size: 1.25em;
+    padding: 16px 24px;
+    border: none;
+}
 
 .head-logo {
     position: absolute;
@@ -156,13 +185,6 @@ button {
     gap: 3rem; 
 }
 
-.login-button {
-    background-color: #6064C4;
-    font-size: 1.25em;
-    padding: 16px 24px;
-    border: none;
-}
-
 .options-page {
     display: flex;
     flex-direction: column;
@@ -193,12 +215,10 @@ button {
     padding: 10vh 0px;
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.1);
-    border: none;
 }
 
 .options-box button:hover {
     background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: none;
 }
 
 .playlist-page {
@@ -244,9 +264,45 @@ img {
     cursor: pointer;
 }
 
-.tracks-page{
-    padding-top: 80px;
+.sliders-page {
+    display: flex;
+    flex-direction: column;
+    padding-top: 25vh;
+    justify-content: center;
+    gap: 7rem; 
+}
+
+.sliders-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.sliders {
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    justify-content: space-between;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+}
+
+input[type="range"] {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+
+.tracks-page{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20vh;
 }
 
 .song-card {
@@ -297,18 +353,6 @@ img {
 
 .album {
     width: 30%;
-}
-
-.create-button {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 64px;
-}
-
-.grey-button {
-    border-color: #A0A0A0;
-    color: #A0A0A0;
 }
 
 audio {

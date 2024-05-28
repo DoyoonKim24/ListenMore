@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { getUser } from './spotifyCalls'
 import PlaylistPage from "./PlaylistPage"
-import axios from "axios";
 
 export default function Dashboard() {
     const [playlist, setPlaylist] = useState(false)
@@ -8,16 +8,7 @@ export default function Dashboard() {
     const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((response) => {
-        localStorage.setItem("userID", response.data.id);
-      })
-      .catch((error) => {
-        console.log("get User ID error", error);
-      });
+        getUser()
     }, [])
 
 
@@ -35,7 +26,7 @@ export default function Dashboard() {
             </div>
         </div>)
     }
-    return (
+    else return (
             <PlaylistPage />
     )
 }

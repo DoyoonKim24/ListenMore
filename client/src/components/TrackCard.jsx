@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as linedHeart } from "@fortawesome/free-regular-svg-icons";
+import axios from "axios";
 
 export default function TrackCard({ track, addTrack, removeTrack, allSelected, allDeselected }) {
   const [play, setPlay] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [trackAdded, setTrackAdded] = useState(false);
   const audioRef = useRef(null);
 
+  const accessToken = localStorage.getItem("accessToken");
+  
   useEffect(() => {
     if (allSelected) {
       setTrackAdded(true);
@@ -34,6 +39,15 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
       setTrackAdded(false);
     }
   }
+  const handleLike = () => {
+    axios.get(`https://api.spotify.com/v1/me/tracks?ids=${track.uri}`,
+    { headers: { Authorization: `Bearer ${accessToken}` }})
+    .then(() => {
+      setLiked(true);
+    }).catch((err) => {
+      console.log("Liking song error: ", err)
+    })
+  }
 
   return (
     <div className="song-card">
@@ -55,8 +69,8 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
         <p className="album">{track.album.name}</p>
       </div>
       <div className="song-actions">
-        <button className="add-button">+</button>
-        <button className={trackAdded ? 'grey-button' : ''} onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
+        <FontAwesomeIcon onClick={handleLike} className={"heart-button " + ( liked ? "liked-button" : null)} icon={( liked ? solidHeart : linedHeart)} />
+        <button className={trackAdded ? 'grey-button' : 'add-button'} onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
       </div>
     </div>
   );

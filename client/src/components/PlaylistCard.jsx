@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getTracks } from "./spotifyCalls";
+
 
 function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setSeeds }) {
   const [playTracks, setPlayTracks] = useState([]);
@@ -18,12 +19,8 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setSe
   }
 
   const handleClick = () => {
-    axios
-      .get(tracks.href, { headers: { Authorization: `Bearer ${accessToken}` } })
-      .then((res) => {
-        return res.data.items;
-      }).then((items) => {
-        const newTrackIDs = items.map((item) => item.track.artists[0].id);
+    getTracks(tracks.href).then(async (items) => {
+        const newTrackIDs = await items.map((item) => item.track.artists[0].id);
         setPlayTracks(newTrackIDs)
       })
 

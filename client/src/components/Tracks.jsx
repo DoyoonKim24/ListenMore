@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import VibePage from "./VibePage";
 import TrackCard from "./TrackCard";
 import Dashboard from "./Dashboard";
+import { getRecommendations, makeAndAddPlaylist } from "./spotifyCalls";
 
 export default function Tracks({ seeds }) {
   const [tracks, setTracks] = useState([]);
@@ -18,26 +20,27 @@ export default function Tracks({ seeds }) {
     setDashRedirect(false);
   }, [])
 
-  const accessToken = localStorage.getItem("accessToken");
-  const userID = localStorage.getItem("userID");
 
-  const handleMakePlaylist = () => {
+  const handleGetRecs = () => {
     const targetDanceability = danceability / 100;
     const targetEnergy = energy / 100;
     const targetValence = valence / 100;
-    axios
-      .get(
-        `https://api.spotify.com/v1/recommendations?limit=50&seed_artists=${seeds}&target_danceability=${targetDanceability}&target_energy=${targetEnergy}&target_valence=${targetValence}`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      )
-      .then((response) => {
-        setTracks(response.data.tracks);
-      })
-      .catch((error) => {
-        console.log("Tracks error ", error);
-      });
+    getRecommendations(seeds, targetDanceability, targetEnergy, targetValence)
+    .then((response) => {
+        setTracks(response);
+    })
+
     setSubmitted(!submitted);
   };
+
+  const createPlaylist = () => {
+    const playlistName = prompt("What would you like to name your playlist?");
+    makeAndAddPlaylist(playlistName, chosenTracks)
+    .then(() => {
+      alert(playlistName + " created!");
+      setTimeout(() => { setDashRedirect(true) }, 1000);
+    })
+  }
 
   const addTrack = (track) => {
     setChosenTracks([...chosenTracks, track]);
@@ -72,67 +75,31 @@ export default function Tracks({ seeds }) {
     }, 1000);
   }
 
-  const createPlaylist = () => {
-    const playlistName = prompt("What would you like to name your playlist?");
-    axios
-     .post(
-        `https://api.spotify.com/v1/users/${userID}/playlists`,
-        { name: playlistName },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      )
-     .then((response) => {
-        axios
-         .post(
-            `https://api.spotify.com/v1/playlists/${response.data.id}/tracks`,
-            { uris: chosenTracks },
-            { headers: { Authorization: `Bearer ${accessToken}` } }
-          )
-         .then(() => {
-            alert(playlistName + " created!");
-            setTimeout(() => { setDashRedirect(true) }, 1000);
-          })
-         .catch((error) => {
-            console.log(error);
-          });
-      })
-     .catch((error) => {
-        console.log(error);
-      });
-  }
+  
   if (dashRedirect) {
     return <Dashboard />
   }
   else if (!submitted) {
     return (
-      <div>
-        <div className="sliders">
-          <h3>Valence</h3>
-          <div>{valence}</div>
-          <input type="range" min="1" max="100" value={valence} onChange={(e) => setValence(e.target.value)}></input>
-        </div>
-        <div className="sliders">
-          <h3>Danceability</h3>
-          <div>{danceability}</div>
-          <input type="range" min="1" max="100" value={danceability} onChange={(e) => setDanceability(e.target.value)}></input>
-        </div>
-        <div className="sliders">
-          <h3>Energy</h3>
-          <div>{energy}</div>
-          <input type="range" min="1" max="100" value={energy} onChange={(e) => setEnergy(e.target.value)}></input>
-        </div>
-        <button onClick={handleMakePlaylist}> Make Playlist </button>
-      </div>
+      <VibePage valence={ valence }
+               danceability= {danceability}
+               energy ={ energy }
+               setValence = { setValence } 
+               setDanceability = { setDanceability } 
+               setEnergy = {setEnergy}
+               handleGetRecs = {handleGetRecs}
+        />
     );
   }
   else return (
     <>
       {tracks.length > 0 ? (
         <div className="tracks-page">
-          <button className='create-button' onClick={createPlaylist}> Create Playlist </button>
+          <button className='purple-button create-button' onClick={createPlaylist}> Create Playlist </button>
           <h1>Choose Songs to Add</h1>
           <div className='select-buttons'>
-          <button onClick={selectAll}>Select All</button>
-          <button onClick={deselectAll}>Deselect All</button>
+            <button className='white-button' onClick={selectAll}>Select All</button>
+            <button className='white-button' onClick={deselectAll}>Deselect All</button>
           </div>
           {tracks.map((track) => (
             <TrackCard key = {track.id} track={track} addTrack={addTrack} removeTrack={removeTrack} allSelected={allSelected} allDeselected={allDeselected}/>
