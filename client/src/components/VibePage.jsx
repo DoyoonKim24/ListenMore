@@ -1,7 +1,7 @@
 export default function VibePage({ valence, danceability, energy, setValence, setDanceability, setEnergy, handleGetRecs }) {
     return (
-      <div className='sliders-page'>
-        <h2>Set the vibe of your music</h2>
+      <div className='header-a-content'>
+        <h1>Set the vibe of your music</h1>
         <div className="sliders-and-button">
           <div className='sliders'>
             <div className="slider">

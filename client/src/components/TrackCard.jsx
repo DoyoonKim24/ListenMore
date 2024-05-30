@@ -56,7 +56,7 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
             )
           ) : null}
         </div>
-        <img src={track.album.images[0].url}></img>
+        <img className='album-cover' src={track.album.images[0].url}></img>
         <div className="song-and-artist">
           <h6>{track.name}</h6>
           <p>{track.artists[0].name}</p>
@@ -64,8 +64,10 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
         <p className="album">{track.album.name}</p>
       </div>
       <div className="song-actions">
-        <FontAwesomeIcon onClick={handleLike} className={"heart-button " + ( liked ? "liked-button" : null)} icon={( liked ? solidHeart : linedHeart)} />
-        <button className={trackAdded ? 'grey-button' : 'add-button'} onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
+        <FontAwesomeIcon onClick={handleLike} className={"heart-button " + (liked ? "liked-button" : "")} icon={( liked ? solidHeart : linedHeart)} />
+        <div className="button-width">
+          <button className={trackAdded ? 'remove-button' : 'add-button'} onClick={handleTrack}> {trackAdded ? 'Remove' : 'Add'} </button>
+        </div>
       </div>
     </div>
   );
