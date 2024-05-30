@@ -18,45 +18,49 @@ export default function Tracks({ seeds }) {
 
   useEffect(() => {
     setDashRedirect(false);
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log(chosenTracks);
   }, [chosenTracks]);
 
-
   const handleGetRecs = () => {
     const targetDanceability = danceability / 100;
     const targetEnergy = energy / 100;
     const targetValence = valence / 100;
-    getRecommendations(seeds, targetDanceability, targetEnergy, targetValence)
-    .then((response) => {
-        setTracks(response);
-    })
+    getRecommendations(
+      seeds,
+      targetDanceability,
+      targetEnergy,
+      targetValence
+    ).then((response) => {
+      setTracks(response);
+    });
 
     setSubmitted(!submitted);
   };
 
   const createPlaylist = () => {
     const playlistName = prompt("What would you like to name your playlist?");
-    makeAndAddPlaylist(playlistName, chosenTracks)
-    .then(() => {
+    makeAndAddPlaylist(playlistName, chosenTracks).then(() => {
       alert(playlistName + " created!");
-      setTimeout(() => { setDashRedirect(true) }, 1000);
-    })
-  }
+      setTimeout(() => {
+        setDashRedirect(true);
+      }, 1000);
+    });
+  };
 
   const addTrack = (track) => {
     setChosenTracks([...chosenTracks, track]);
-  }
+  };
 
   const removeTrack = (track) => {
-    let arr = [... chosenTracks];
+    let arr = [...chosenTracks];
     const index = arr.indexOf(track);
     arr.splice(index, 1);
-    setChosenTracks(arr)
-  }
-  
+    setChosenTracks(arr);
+  };
+
   const selectAll = async () => {
     setAllDeselected(false);
     setAllSelected(true);
@@ -65,52 +69,72 @@ export default function Tracks({ seeds }) {
       arr.push(tracks[i].uri);
     }
     setChosenTracks(arr);
-    setTimeout(() =>{
-      setAllSelected(false)
+    setTimeout(() => {
+      setAllSelected(false);
     }, 1000);
-  }
+  };
 
   const deselectAll = async () => {
     setAllDeselected(true);
     setAllSelected(false);
     setChosenTracks([]);
-    setTimeout(() =>{
-      setAllDeselected(false)
+    setTimeout(() => {
+      setAllDeselected(false);
     }, 1000);
-  }
+  };
 
-  
   if (dashRedirect) {
-    return <Dashboard />
-  }
-  else if (!submitted) {
+    return <Dashboard />;
+  } else if (!submitted) {
     return (
-      <VibePage valence={ valence }
-               danceability= {danceability}
-               energy ={ energy }
-               setValence = { setValence } 
-               setDanceability = { setDanceability } 
-               setEnergy = {setEnergy}
-               handleGetRecs = {handleGetRecs}
-        />
+      <VibePage
+        valence={valence}
+        danceability={danceability}
+        energy={energy}
+        setValence={setValence}
+        setDanceability={setDanceability}
+        setEnergy={setEnergy}
+        handleGetRecs={handleGetRecs}
+      />
     );
-  }
-  else return (
-    <>
-      {tracks.length > 0 ? (
-        <div className="tracks-page">
-          {chosenTracks.length > 0 ?  <button className='purple-button create-button' onClick={createPlaylist}> Create Playlist </button> : null}
-         
-          <h1>Choose Songs to Add</h1>
-          <div className='select-buttons'>
-            <button className='white-button' onClick={selectAll}>Select All</button>
-            <button className='white-button' onClick={deselectAll}>Deselect All</button>
+  } else
+    return (
+      <>
+        {tracks.length > 0 ? (
+          <div className="header-a-content">
+            {chosenTracks.length > 0 ? (
+              <button
+                className="purple-button create-button"
+                onClick={createPlaylist}
+              >
+                Create Playlist
+              </button>
+            ) : null}
+
+            <h1>Choose Songs to Add</h1>
+            <div>
+              <div className="select-buttons">
+                <button className="white-border-button" onClick={selectAll}>
+                  Select All
+                </button>
+                <button className="grey-button" onClick={deselectAll}>
+                  Deselect All
+                </button>
+              </div>
+
+              {tracks.map((track) => (
+                <TrackCard
+                  key={track.id}
+                  track={track}
+                  addTrack={addTrack}
+                  removeTrack={removeTrack}
+                  allSelected={allSelected}
+                  allDeselected={allDeselected}
+                />
+              ))}
+            </div>
           </div>
-          {tracks.map((track) => (
-            <TrackCard key = {track.id} track={track} addTrack={addTrack} removeTrack={removeTrack} allSelected={allSelected} allDeselected={allDeselected}/>
-          ))}
-        </div>
-      ) : null}
-    </>
-  );
+        ) : null}
+      </>
+    );
 }

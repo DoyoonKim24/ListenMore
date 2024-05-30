@@ -21,8 +21,8 @@ export default function PlaylistPage() {
   if (!chosen) {
     return (
         playlists.length > 0 ? (
-          <div className="playlist-page">
-            <h2>Choose A Playlist:</h2>
+          <div className="header-a-content">
+            <h1>Choose A Playlist:</h1>
             <div className='playlists-grid'>
               {playlists.map((playlist) => (
               <PlaylistCard
