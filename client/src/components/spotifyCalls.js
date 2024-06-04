@@ -46,6 +46,23 @@ export const getTracks = async (hrefs) => {
     return response;
 }
 
+export const getArtistGenres = async (ids) => {
+  const accessToken = localStorage.getItem("accessToken");
+  let response = [];
+  await axios.get(
+    `https://api.spotify.com/v1/artists?ids=${ids}`, 
+    {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    }
+  ).then((res) => {
+    response = res.data;
+  }).catch((error) => {
+    console.log("get genres error", error);
+  })
+  return response;
+}
+
+
 export const makeAndAddPlaylist = async (playlistName, chosenTracks) => {
     const accessToken = await localStorage.getItem("accessToken");
     const userID = await localStorage.getItem("userID");
@@ -71,12 +88,14 @@ export const makeAndAddPlaylist = async (playlistName, chosenTracks) => {
       });
 }
 
-export const getRecommendations = async (seeds, targetDanceability, targetEnergy, targetValence) => {
+export const getRecommendations = async (artistSeeds, genreSeeds, targetDanceability, targetEnergy, targetValence) => {
     const accessToken = await localStorage.getItem("accessToken");
     let recs = [];
+    console.log(genreSeeds);
+    console.log(artistSeeds);
     await axios
       .get(
-        `https://api.spotify.com/v1/recommendations?limit=50&seed_artists=${seeds}&target_danceability=${targetDanceability}&target_energy=${targetEnergy}&target_valence=${targetValence}`,
+        `https://api.spotify.com/v1/recommendations?limit=50&seed_artists=${artistSeeds}&seed_genres=${genreSeeds}&target_danceability=${targetDanceability}&target_energy=${targetEnergy}&target_valence=${targetValence}`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
       .then((response) => {

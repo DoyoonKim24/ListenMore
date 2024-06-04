@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import VibePage from "./VibePage";
 import TrackCard from "./TrackCard";
-import Dashboard from "./Dashboard";
+import PlaylistPage from "./PlaylistPage";
 import { getRecommendations, makeAndAddPlaylist } from "./spotifyCalls";
 
-export default function Tracks({ seeds }) {
+export default function Tracks({ artistSeeds, genreSeeds }) {
   const [tracks, setTracks] = useState([]);
   const [valence, setValence] = useState(50);
   const [danceability, setDanceability] = useState(50);
@@ -20,16 +19,14 @@ export default function Tracks({ seeds }) {
     setDashRedirect(false);
   }, []);
 
-  useEffect(() => {
-    console.log(chosenTracks);
-  }, [chosenTracks]);
 
   const handleGetRecs = () => {
     const targetDanceability = danceability / 100;
     const targetEnergy = energy / 100;
     const targetValence = valence / 100;
     getRecommendations(
-      seeds,
+      artistSeeds,
+      genreSeeds,
       targetDanceability,
       targetEnergy,
       targetValence
@@ -84,7 +81,7 @@ export default function Tracks({ seeds }) {
   };
 
   if (dashRedirect) {
-    return <Dashboard />;
+    return <PlaylistPage />;
   } else if (!submitted) {
     return (
       <VibePage

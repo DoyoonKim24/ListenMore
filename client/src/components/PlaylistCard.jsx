@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
-import { getTracks } from "./spotifyCalls";
+import { getTracks, getArtistGenres } from "./spotifyCalls";
+import genresData from './genres.json';
 
 
-function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setSeeds }) {
-  const [playTracks, setPlayTracks] = useState([]);
-  const accessToken = localStorage.getItem("accessToken");
+function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setArtistSeeds, setGenreSeeds}) {
+  const [artists, setArtists] = useState([]);
+  const [sortedArtists, setSortedArtists] = useState([]);
+  const [genres, setGenres] = useState([]);
 
-  const findtopArtists = (array) => {
+
+
+  const sortMost = (array) => {
     const frequencyMap = {};
   
     array.forEach(item => {
@@ -15,24 +19,44 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setSe
     const sortedItems = Object.entries(frequencyMap)
                            .sort((a, b) => b[1] - a[1])
                            .map(([item]) => item);
-    return sortedItems.slice(0, 5).toString();
+    return sortedItems
   }
 
   const handleClick = () => {
     getTracks(tracks.href).then(async (items) => {
-        const newTrackIDs = await items.map((item) => item.track.artists[0].id);
-        setPlayTracks(newTrackIDs)
+        const artistIDs = await items.map((item) => item.track.artists[0].id).filter((id) => id !== null);
+        setArtists(artistIDs)
       })
-
   }
 
+  const filterGenres = (genres) => {
+    const availableGenres = genresData.genresData;
+    const filteredGenres = genres.filter(genre => availableGenres.includes(genre));
+    return filteredGenres;
+  };
+
   useEffect(() => {
-    if (playTracks.length > 0) {
-      setSeeds(findtopArtists(playTracks));
-      setChosen(true);
+    if (artists.length > 0) {
+      const topArtists = sortMost(artists)
+      setSortedArtists(topArtists)
+      setArtistSeeds(topArtists.slice(0, 2).toString());
     }
-  }, [playTracks]);
-    
+  }, [artists]);
+
+  useEffect(() => {
+    if (sortedArtists.length > 0) {
+      let reducedArtists = sortedArtists.slice(0, 50);
+      getArtistGenres(reducedArtists).then((res) => {
+        let genreArray = res.artists.reduce((acc, item) => {
+          return acc.concat(item.genres);
+        }, []);
+        const sortedGenres = sortMost(genreArray).map(str => str.replace('bossa nova', 'bossanova').replace('pov: ', '').replace(' ', '-').replace('&', '-n-'));
+        const finalGenres = filterGenres(sortedGenres);
+        setGenreSeeds(finalGenres.slice(0, 3).toString());
+        setChosen(true);
+      })
+    }
+  }, [sortedArtists]);
 
   return (
     <a onClick={handleClick} className="playlist">
