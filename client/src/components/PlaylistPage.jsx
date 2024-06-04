@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
-import { getPlaylists } from "./spotifyCalls";
+import { getPlaylists, getUser } from "./spotifyCalls";
 import PlaylistCard from "./PlaylistCard";
 import Tracks from "./Tracks";
 
 
 export default function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
-  const [seeds, setSeeds] = useState([]);
+  const [artistSeeds, setArtistSeeds] = useState([]);
+  const [genreSeeds, setGenreSeeds] = useState([]);
   const [chosen, setChosen] = useState(false);
+
+  window.history.pushState({}, null, "/")
+
+  useEffect(() => {
+    getUser()
+}, [])
 
   const userID = localStorage.getItem("userID");
 
@@ -29,7 +36,8 @@ export default function PlaylistPage() {
                 key={playlist.id}
                 playlist={playlist}
                 setChosen={setChosen}
-                setSeeds={setSeeds}
+                setArtistSeeds={setArtistSeeds}
+                setGenreSeeds={setGenreSeeds}
               />
               ))}
             </div>
@@ -37,5 +45,5 @@ export default function PlaylistPage() {
         ) : null
     );
   }
-  return <Tracks seeds={seeds} />
+  return <Tracks artistSeeds={artistSeeds} genreSeeds={genreSeeds}/>
 }

@@ -1,5 +1,5 @@
 import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import PlaylistPage from "./components/PlaylistPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import "./App.css";
@@ -23,7 +23,7 @@ export default function App() {
       <div className="purple-ellipse"></div>
       <div className="red-ellipse"></div>
       
-      {accessToken ? <Dashboard /> : <Login />}
+      {accessToken ? <PlaylistPage /> : <Login />}
     </>
   );
 }

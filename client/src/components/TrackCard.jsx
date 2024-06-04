@@ -10,7 +10,6 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
   const [trackAdded, setTrackAdded] = useState(false);
   const audioRef = useRef(null);
 
-  const accessToken = localStorage.getItem("accessToken");
   
   useEffect(() => {
     if (allSelected) {
@@ -32,6 +31,7 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
 
   const handleTrack = () => {
     if (!trackAdded) {
+       console.log(track)
       addTrack(track.uri);
       setTrackAdded(true);
     } else {
