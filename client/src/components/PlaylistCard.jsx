@@ -53,7 +53,7 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setAr
         const sortedGenres = sortMost(genreArray).map(str => str.replace('bossa nova', 'bossanova').replace('pov: ', '').replace(' ', '-').replace('&', '-n-'));
         const finalGenres = filterGenres(sortedGenres);
         setGenreSeeds(finalGenres.slice(0, 3).toString());
-        setChosen(true);
+        setChosen([id, name]);
       })
     }
   }, [sortedArtists]);

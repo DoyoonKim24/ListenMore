@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import VibePage from "./VibePage";
 import TrackCard from "./TrackCard";
 import PlaylistPage from "./PlaylistPage";
-import { getRecommendations, makeAndAddPlaylist } from "./spotifyCalls";
+import { getRecommendations, makeAndAddPlaylist, addToCurrentPlaylist } from "./spotifyCalls";
 
-export default function Tracks({ artistSeeds, genreSeeds }) {
+export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   const [tracks, setTracks] = useState([]);
   const [valence, setValence] = useState(50);
   const [danceability, setDanceability] = useState(50);
@@ -41,6 +41,14 @@ export default function Tracks({ artistSeeds, genreSeeds }) {
     const playlistName = prompt("What would you like to name your playlist?");
     makeAndAddPlaylist(playlistName, chosenTracks).then(() => {
       alert(playlistName + " created!");
+      setTimeout(() => {
+        setDashRedirect(true);
+      }, 1000);
+    });
+  };
+  const addToPlaylist = () => {
+    addToCurrentPlaylist(playlist[0], chosenTracks).then(() => {
+      alert(`added to ${playlist[1]}!`);
       setTimeout(() => {
         setDashRedirect(true);
       }, 1000);
@@ -100,12 +108,21 @@ export default function Tracks({ artistSeeds, genreSeeds }) {
         {tracks.length > 0 ? (
           <div className="header-a-content">
             {chosenTracks.length > 0 ? (
-              <button
-                className="purple-button create-button"
+              <div className='create-buttons'>
+                <button
+                className="purple-button"
                 onClick={createPlaylist}
               >
                 Create Playlist
               </button>
+              <button
+                className="purple-button white-button"
+                onClick={addToPlaylist}
+              >
+                Add to Playlist
+              </button>
+              </div>
+              
             ) : null}
 
             <h1>Choose Songs to Add</h1>

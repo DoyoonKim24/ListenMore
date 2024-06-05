@@ -45,5 +45,5 @@ export default function PlaylistPage() {
         ) : null
     );
   }
-  return <Tracks artistSeeds={artistSeeds} genreSeeds={genreSeeds}/>
+  return <Tracks playlist={chosen} artistSeeds={artistSeeds} genreSeeds={genreSeeds}/>
 }
