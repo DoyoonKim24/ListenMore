@@ -88,6 +88,18 @@ export const makeAndAddPlaylist = async (playlistName, chosenTracks) => {
       });
 }
 
+export const addToCurrentPlaylist = async (playlistID, chosenTracks) => {
+  const accessToken = await localStorage.getItem("accessToken");
+  axios.post(
+            `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+            { uris: chosenTracks },
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+          )
+         .catch((error) => {
+            console.log("Adding to new playlist error: ", error);
+          });
+}
+
 export const getRecommendations = async (artistSeeds, genreSeeds, targetDanceability, targetEnergy, targetValence) => {
     const accessToken = await localStorage.getItem("accessToken");
     let recs = [];

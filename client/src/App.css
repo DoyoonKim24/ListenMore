@@ -123,9 +123,11 @@ button:hover {
     background-color: white;
     color: black;
 }
-.create-button {
+.create-buttons {
     position: fixed;
     left: 50%;
+    display: flex;
+    gap: 8px;
     transform: translateX(-50%);
     bottom: 64px;
 }
@@ -153,6 +155,10 @@ button:hover {
     box-shadow: rgba(96,100,196,.35) 0 -25px 18px -14px inset,rgba(96,100,196,.25) 0 1px 2px,rgba(96,100,196,.25) 0 2px 4px,rgba(96,100,196,.25) 0 4px 8px,rgba(96,100,196,.25) 0 8px 16px,rgba(96,100,196,.25) 0 16px 32px;
 }
 
+.white-button {
+    background-color: white;
+    color: black;
+}
 
 .head-logo {
     position: absolute;
@@ -260,7 +266,7 @@ button:hover {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 16px; 
 }
 
 img {
