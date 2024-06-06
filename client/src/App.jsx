@@ -5,11 +5,7 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import "./App.css";
 
 export default function App() {
-  const accessToken = new URLSearchParams(window.location.search).get(
-    "access_token"
-  );
-
-  //window.history.pushState({}, null, "/")
+  const accessToken = new URLSearchParams(window.location.search).get("access_token");
   localStorage.setItem("accessToken", accessToken);
 
   return (

@@ -56,7 +56,7 @@ export default function TrackCard({ track, addTrack, removeTrack, allSelected, a
             )
           ) : null}
         </div>
-        <img className='album-cover' src={track.album.images[0].url}></img>
+        <img className='album-cover' src={track.album.images[0].url} alt={track.name}/>
         <div className="song-and-artist">
           <h6>{track.name}</h6>
           <p>{track.artists[0].name}</p>

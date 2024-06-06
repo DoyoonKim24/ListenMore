@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const request = require("request");
@@ -6,9 +7,9 @@ const bodyParser = require("body-parser")
 const querystring = require("querystring");
 
 
-var client_id = "***REMOVED***";
-var client_secret = "***REMOVED***";
-var redirect_uri = "http://localhost:8888/callback";
+var client_id = process.env.CLIENT_ID;
+var client_secret = process.env.CLIENT_SECRET;
+var redirect_uri = process.env.REDIRECT_URI;
 
 var app = express();
 
@@ -58,30 +59,5 @@ app.get('/callback', async (req, res) => {
         console.log(error);
     }
 });
-
-
-// app.post("/callback", function (req, res) {
-//   var code = req.body.code
-//   var authOptions = {
-//     url: "https://accounts.spotify.com/api/token",
-//     form: {
-//       code: code,
-//       redirect_uri: redirect_uri,
-//       grant_type: "authorization_code",
-//     },
-//     headers: {
-//       "content-type": "application/x-www-form-urlencoded",
-//       Authorization:
-//         "Basic " +
-//         new Buffer.from(client_id + ":" + client_secret).toString("base64"),
-//     },
-//     json: true,
-//   };
-
-//   request.post(authOptions, function (error, response, body) {
-//     console.log(body);
-//     res.json(body);
-//   });
-// });
 
 app.listen(8888);
