@@ -6,7 +6,6 @@ import genresData from './genres.json';
 function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setArtistSeeds, setGenreSeeds}) {
   const [artists, setArtists] = useState([]);
   const [sortedArtists, setSortedArtists] = useState([]);
-  const [genres, setGenres] = useState([]);
 
 
 
@@ -61,7 +60,7 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setAr
   return (
     <a onClick={handleClick} className="playlist">
       {images ? (
-        <img src={images[0].url} />
+        <img src={images[0].url} alt={name}/>
       ) : (
         <img src="https://via.placeholder.com/400" />
       )}
