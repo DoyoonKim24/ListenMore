@@ -133,7 +133,6 @@ export const addLike = (uri) => {
 
 export const removeLike = (uri) => {
   const accessToken = localStorage.getItem("accessToken");
-  console.log(uri)
   axios.delete(
     `https://api.spotify.com/v1/me/tracks?ids=${uri}`, 
     {

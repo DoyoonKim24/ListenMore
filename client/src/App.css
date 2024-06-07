@@ -32,6 +32,12 @@ h1 {
     margin: 0px;
 }
 
+h2 {
+    font-size: 3.052rem;
+    margin: 0;
+    font-weight: 600;
+}
+
 h4 {
     font-size: 1.95em;
     margin: 0;
@@ -130,15 +136,17 @@ button:hover {
     gap: 8px;
     transform: translateX(-50%);
     bottom: 64px;
+    width: 100%;
+    justify-content: center;
 }
 
-.grey-button {
+.grey-border-button {
     border: 3px solid;
     border-color: #A0A0A0;
     color: #A0A0A0;
     background-color: rgba(0,0,0,0);
 }
-.grey-button:hover {
+.grey-border-button:hover {
     border-color: white;
     color: white;
 }
@@ -153,6 +161,15 @@ button:hover {
 .purple-button:hover {
     cursor: pointer;
     box-shadow: rgba(96,100,196,.35) 0 -25px 18px -14px inset,rgba(96,100,196,.25) 0 1px 2px,rgba(96,100,196,.25) 0 2px 4px,rgba(96,100,196,.25) 0 4px 8px,rgba(96,100,196,.25) 0 8px 16px,rgba(96,100,196,.25) 0 16px 32px;
+}
+
+.grey-button {
+    background-color: #A0A0A0;
+}
+
+.grey-button:hover {
+    cursor: default;
+    box-shadow: none;
 }
 
 .white-button {
@@ -343,7 +360,7 @@ input[type="range"] {
     align-items: center;
     justify-content: flex-start;
     gap: 24px;
-    width:60%;
+    width:70%;
 }
 
 .play-button {
@@ -397,6 +414,58 @@ audio {
 .liked-button {
     color: #C92049 !important;
 }
+
+.darkBG {
+    background-color: rgba(0,0,0,0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: fixed;
+}
+.modal {
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 560px;
+    height: 320px;
+    background-color: #DADCE7;
+    color: #6064C4;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:24px;
+}
+
+.x-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    padding: 8px;
+    border-radius: 50px;
+    width:16px;
+    height: 16px;
+}
+
+.x-button:hover {
+    cursor: pointer;
+}
+
+input[type="text"] {
+    font-family: "Effra", sans-serif;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 16px;
+    width: 65%;
+    margin-bottom: 32px;
+  }
 
 
 @media only screen and (max-width: 1200px) { 
@@ -459,8 +528,6 @@ audio {
     }
 
     .purple-button {
-        background-color: #6064C4;
-        color: white;
         padding: 12px 14px;
         font-size: 0.8rem;
         border: none;
@@ -493,6 +560,7 @@ audio {
     }
     .song-info{
         gap: 16px;
+        width:60%;
     }
     .play-button {
         display: none;

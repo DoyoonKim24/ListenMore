@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import VibePage from "./VibePage";
 import TrackCard from "./TrackCard";
 import PlaylistPage from "./PlaylistPage";
+import Modal from "./Modal";
 import { getRecommendations, makeAndAddPlaylist, addToCurrentPlaylist } from "./spotifyCalls";
 
 export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
@@ -14,11 +15,11 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   const [allSelected, setAllSelected] = useState(false);
   const [allDeselected, setAllDeselected] = useState(false);
   const [dashRedirect, setDashRedirect] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setDashRedirect(false);
   }, []);
-
 
   const handleGetRecs = () => {
     const targetDanceability = danceability / 100;
@@ -38,7 +39,10 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   };
 
   const createPlaylist = () => {
-    const playlistName = prompt("What would you like to name your playlist?");
+    setIsOpen(true);
+  };
+
+  const handleCreatePlaylist = (playlistName) => {
     makeAndAddPlaylist(playlistName, chosenTracks).then(() => {
       alert(playlistName + " created!");
       setTimeout(() => {
@@ -46,6 +50,7 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
       }, 1000);
     });
   };
+
   const addToPlaylist = () => {
     addToCurrentPlaylist(playlist[0], chosenTracks).then(() => {
       alert(`added to ${playlist[1]}!`);
@@ -105,24 +110,24 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   } else
     return (
       <>
+        {isOpen && <Modal setIsOpen={setIsOpen} handleCreatePlaylist={handleCreatePlaylist} />}
         {tracks.length > 0 ? (
           <div className="header-a-content">
             {chosenTracks.length > 0 ? (
               <div className='create-buttons'>
                 <button
-                className="purple-button"
-                onClick={createPlaylist}
-              >
-                Create Playlist
-              </button>
-              <button
-                className="purple-button white-button"
-                onClick={addToPlaylist}
-              >
-                Add to Playlist
-              </button>
+                  className="purple-button"
+                  onClick={createPlaylist}
+                >
+                  Create Playlist
+                </button>
+                <button
+                  className="purple-button white-button"
+                  onClick={addToPlaylist}
+                >
+                  Add to Playlist
+                </button>
               </div>
-              
             ) : null}
 
             <h1>Choose Songs to Add</h1>
@@ -131,7 +136,7 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
                 <button className="white-border-button" onClick={selectAll}>
                   Select All
                 </button>
-                <button className="grey-button" onClick={deselectAll}>
+                <button className="grey-border-button" onClick={deselectAll}>
                   Deselect All
                 </button>
               </div>
