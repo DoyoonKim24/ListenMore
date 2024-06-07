@@ -15,7 +15,8 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   const [allSelected, setAllSelected] = useState(false);
   const [allDeselected, setAllDeselected] = useState(false);
   const [dashRedirect, setDashRedirect] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confModal, setConfModal] = useState(false);
 
   useEffect(() => {
     setDashRedirect(false);
@@ -39,24 +40,25 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   };
 
   const createPlaylist = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
   };
 
   const handleCreatePlaylist = (playlistName) => {
     makeAndAddPlaylist(playlistName, chosenTracks).then(() => {
-      alert(playlistName + " created!");
+      setIsModalOpen(false);
+      setConfModal(playlistName + " created!");
       setTimeout(() => {
         setDashRedirect(true);
-      }, 1000);
+      }, 2000);
     });
   };
 
   const addToPlaylist = () => {
     addToCurrentPlaylist(playlist[0], chosenTracks).then(() => {
-      alert(`added to ${playlist[1]}!`);
+      setConfModal(`Added to ${playlist[1]}!`)
       setTimeout(() => {
         setDashRedirect(true);
-      }, 1000);
+      }, 2000);
     });
   };
 
@@ -110,7 +112,8 @@ export default function Tracks({ playlist, artistSeeds, genreSeeds }) {
   } else
     return (
       <>
-        {isOpen && <Modal setIsOpen={setIsOpen} handleCreatePlaylist={handleCreatePlaylist} />}
+        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} handleCreatePlaylist={handleCreatePlaylist} />}
+        {confModal && <><div className="darkBG"> </div><h1 className="conf-text"> {confModal} </h1> </>}
         {tracks.length > 0 ? (
           <div className="header-a-content">
             {chosenTracks.length > 0 ? (
