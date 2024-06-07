@@ -2,16 +2,12 @@ import { useState, useEffect } from "react";
 import { getTracks, getArtistGenres } from "./spotifyCalls";
 import genresData from './genres.json';
 
-
 function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setArtistSeeds, setGenreSeeds}) {
   const [artists, setArtists] = useState([]);
   const [sortedArtists, setSortedArtists] = useState([]);
 
-
-
   const sortMost = (array) => {
     const frequencyMap = {};
-  
     array.forEach(item => {
       frequencyMap[item] = (frequencyMap[item] || 0) + 1;
     });
@@ -19,14 +15,7 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setAr
                            .sort((a, b) => b[1] - a[1])
                            .map(([item]) => item);
     return sortedItems
-  }
-
-  const handleClick = () => {
-    getTracks(tracks.href).then(async (items) => {
-        const artistIDs = await items.map((item) => item.track.artists[0].id).filter((id) => id !== null);
-        setArtists(artistIDs)
-      })
-  }
+  };
 
   const filterGenres = (genres) => {
     const availableGenres = genresData.genresData;
@@ -34,13 +23,20 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setAr
     return filteredGenres;
   };
 
+  const handleClick = () => {
+    getTracks(tracks.href).then(async (items) => {
+      const artistIDs = await items.map((item) => item.track.artists[0].id).filter((id) => id !== null);
+      setArtists(artistIDs);
+    });
+  };
+
   useEffect(() => {
     if (artists.length > 0) {
-      const topArtists = sortMost(artists)
-      setSortedArtists(topArtists)
+      const topArtists = sortMost(artists);
+      setSortedArtists(topArtists);
       setArtistSeeds(topArtists.slice(0, 2).toString());
     }
-  }, [artists]);
+  }, [artists, setArtistSeeds]);
 
   useEffect(() => {
     if (sortedArtists.length > 0) {
@@ -53,19 +49,19 @@ function PlaylistCard({ playlist: { id, name, tracks, images }, setChosen, setAr
         const finalGenres = filterGenres(sortedGenres);
         setGenreSeeds(finalGenres.slice(0, 3).toString());
         setChosen([id, name]);
-      })
+      });
     }
-  }, [sortedArtists]);
+  }, [sortedArtists, setGenreSeeds, setChosen, id, name]);
 
   return (
-    <a onClick={handleClick} className="playlist">
+    <div onClick={handleClick} className="playlist">
       {images ? (
-        <img src={images[0].url} alt={name}/>
+        <img src={images[0].url} alt={name} />
       ) : (
-        <img src="https://via.placeholder.com/400" />
+        <img src="https://via.placeholder.com/400" alt="blank album" />
       )}
       <p>{name}</p>
-    </a>
+    </div>
   );
 }
 
