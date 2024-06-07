@@ -7,9 +7,10 @@ const bodyParser = require("body-parser")
 const querystring = require("querystring");
 
 
+// ADD YOUR CREDENTIALS HERE
 var client_id = process.env.CLIENT_ID;
 var client_secret = process.env.CLIENT_SECRET;
-var redirect_uri = process.env.REDIRECT_URI;
+var redirect_uri = "http://localhost:8888/callback";
 
 var app = express();
 
