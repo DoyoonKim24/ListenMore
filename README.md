@@ -1,23 +1,46 @@
-# ListenMore - A Spotify Powered Playlist Generator
+<div align="center">
+    <img src="images/ListenMore-logo.png" alt="Logo" width="80" height="80">
 
-ListenMore is a web application where users can select one of their personal playlists as a template and set desired levels of valence, energy, and danceability to curate a customized playlist.
+  <h3 align="center">ListenMore - A Spotify Powered Playlist Generator</h3>
+
+  <p align="center">
+    ListenMore is a web application where users can select one of their personal playlists as a template and set desired levels of valence, energy, and danceability to curate a customized playlist.
+  </p>
+</div>
 
 
-## Tech Stack
+## About The Project
 
-**Front-end:** React, JavaScript, CSS, HTML, Axios
+[![ListenMore Screen Shot][images/preview.png]]
 
-**Back-end::** Node, Express
+As my music library grew, I found it increasingly time-consuming to manually create entirely new playlists. Each time I wanted to discover new tracks or create a playlist with a specific vibe, I'd spend hours searching for the right songs, which sometimes took the joy out of the process.
 
-**Other:** Spotify Web API, Figma
+That's why I created ListenMore. This app allows users to select one of their existing playlists as a base and adjust parameters such as valence, energy, and danceability to quickly generate a new playlist. Now, you can easily create the ideal playlist for any occasion without the hassle of manual searching. This app brings back the joy of discovering and enjoying music, tailored perfectly to your preferences.
+
+
+### Tech Stack
+
+**Front-end:** ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)   ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)   ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)   ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)   	![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
+**Back-end::** ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)   ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+
+**Other:** Spotify Web API
+
+
+### How it Works
+- **Select Base Playlist**: Choose an existing playlist from your Spotify library to base the new playlist on.
+- **Set Preferences**: Adjust the valence, energy, and danceability parameters to tailor the new playlist to your mood and preferences.
+- **Add Music**: Create a new playlist or add to an existing playlist with the generated tracks.
 
 
 ## Features
 
-- **Select Base Playlist**: Choose an existing playlist from your Spotify library to base the new playlist on.
-- **Set Preferences**: Adjust the valence, energy, and danceability parameters to tailor the new playlist to your mood and preferences.
-- **Add Music**: Create a new playlist or add to an existing playlist with the generated tracks.
-- **Responsive Design:** Developed so that the program can be used on a wide array of different screen sizes.
+- **1. Select Base Playlist**: I used the Spotify API to load in the user's existing playlists so that they can choose one to base the new playlist on.
+- **2. Set Preferences**: The user can then adjust the valence, energy, and danceability parameters to tailor the new playlist to your mood and preferences.
+- **3. Generate New Music**: The program calculates the most common artists and genres in the selected playlist, and uses that info along with the set preferences to generate 50 new song suggestions using Spotify's Song Recommendation API.
+
+- **4. Add Music**: The user selects songs to create a new playlist or add to an existing playlist.
+
 
 ## Getting Started
 
