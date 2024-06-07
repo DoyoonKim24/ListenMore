@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function Modal({setIsOpen, handleCreatePlaylist }) {
+export default function Modal({setIsModalOpen, handleCreatePlaylist }) {
   const [name, setName] = useState("");
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -13,12 +13,12 @@ export default function Modal({setIsOpen, handleCreatePlaylist }) {
 
   return (
     <>
-      <div className="darkBG" onClick={() => setIsOpen(false)} />
+      <div className="darkBG" onClick={() => setIsModalOpen(false)} />
       <div className="modal">
         <FontAwesomeIcon
           icon={faXmark}
           className="x-button"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setIsModalOpen(false)}
         />
         <h2>Name your Playlist</h2>
         <input
