@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="images/ListenMore-logo.png" alt="Logo" width="100" height="auto">
+    <img src="images/ListenMore-logo.png" alt="Logo" width="130" height="auto">
 
   <h1 align="center">ListenMore - A Spotify Powered Playlist Generator</h1>
 
@@ -11,7 +11,7 @@
 
 ## About The Project
 
-![ListenMore Screen Shot](images/preview.png)
+![ListenMore Demo](images/demo.gif)
 
 As my music library grew, I found it increasingly time-consuming to manually create entirely new playlists. Each time I wanted to discover new tracks or create a playlist with a specific vibe, I'd spend hours searching for the right songs, which sometimes took the joy out of the process.
 
@@ -35,6 +35,7 @@ That's why I created ListenMore. This app allows users to select one of their ex
 
 - **4. Add Music**: The user can then add the generated songs to their liked songs, create a new playlist, or add to an existing playlist.
 
+![ListenMore Screen Shot](images/preview.png)
 
 ## Getting Started
 
