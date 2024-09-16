@@ -12,6 +12,7 @@
 ## About The Project
 
 ![ListenMore Demo](images/demo.gif)
+### PLEASE WAIT FOR GIF TO LOAD
 
 As my music library grew, I found it increasingly time-consuming to manually create entirely new playlists. Each time I wanted to discover new tracks or create a playlist with a specific vibe, I'd spend hours searching for the right songs, which sometimes took the joy out of the process.
 
